@@ -1,8 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fefcf8;
+  --foreground: #2d2a26;
+  /* Pet Care palette - warm and friendly */
+  --primary-50: #fef9f0;
+  --primary-100: #fdf0d9;
+  --primary-200: #f9e2b9;
+  --primary-300: #f2c77a;
+  --primary-400: #e8a73a;
+  --primary-500: #d98b1a;
+  --primary-600: #b86f14;
+  --primary-700: #935518;
+  --primary-800: #78451a;
+  --primary-900: #643a19;
+  --primary-950: #361c09;
 }
 
 @theme inline {
@@ -10,17 +22,28 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-800: var(--primary-800);
+  --color-primary-900: var(--primary-900);
+  --color-primary-950: var(--primary-950);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1a1714;
+    --foreground: #f5f0e8;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
 }

@@ -1,0 +1,17 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Dependencias uteis para desenvolvimento e scripts
+RUN apk add --no-cache libc6-compat bash
+
+# Copia apenas manifests para aproveitar cache de camada
+COPY package.json package-lock.json ./
+
+# Instala dependencias do projeto
+RUN npm ci
+
+# O codigo sera montado por volume no docker-compose
+EXPOSE 3000
+
+CMD ["npm", "run", "dev", "--", "--hostname", "0.0.0.0", "--port", "3000"]
