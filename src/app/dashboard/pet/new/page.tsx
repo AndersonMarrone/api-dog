@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
-import { createPet, uploadPetPhoto, updatePet } from "@/lib/firestore-pets";
+import { createPet, uploadPetPhoto, updatePet } from "@/lib/pets";
 import type { PetFormData } from "@/types/pet";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Card } from "@/components/ui/Card";
@@ -41,6 +41,7 @@ export default function NewPetPage() {
   const { user, loading: authLoading } = useAuth();
   const [form, setForm] = useState<PetFormData>(initial);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -59,13 +60,13 @@ export default function NewPetPage() {
     }
     setSubmitting(true);
     try {
-      const id = await withTimeout(createPet(user.uid, form), 8000);
+      const id = await withTimeout(createPet(user.id, form), 8000);
 
       // Upload da foto em segundo plano para nao bloquear o salvamento principal.
       if (photoFile) {
         void (async () => {
           try {
-            const photoUrl = await uploadPetPhoto(photoFile, id);
+            const photoUrl = await uploadPetPhoto(photoFile);
             await updatePet(id, { photoUrl });
           } catch (uploadErr) {
             console.error("Falha ao enviar foto do pet:", uploadErr);
@@ -146,12 +147,25 @@ export default function NewPetPage() {
               <label className="mb-1 block text-sm font-medium text-primary-800 dark:text-primary-200">
                 Foto
               </label>
+              {photoPreview && (
+                <div className="mb-3 flex justify-center">
+                  <img
+                    src={photoPreview}
+                    alt="Preview"
+                    className="h-32 w-32 rounded-xl object-cover border-2 border-primary-200 dark:border-primary-700"
+                  />
+                </div>
+              )}
               <input
                 ref={fileInputRef}
                 type="file"
                 accept="image/*"
                 className="block w-full text-sm text-primary-600 file:mr-4 file:rounded-lg file:border-0 file:bg-primary-100 file:px-4 file:py-2 file:font-medium file:text-primary-700 dark:file:bg-primary-800 dark:file:text-primary-200"
-                onChange={(e) => setPhotoFile(e.target.files?.[0] ?? null)}
+                onChange={(e) => {
+                  const file = e.target.files?.[0] ?? null;
+                  setPhotoFile(file);
+                  setPhotoPreview(file ? URL.createObjectURL(file) : null);
+                }}
               />
             </div>
             <Textarea

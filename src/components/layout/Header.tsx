@@ -13,23 +13,23 @@ export function Header() {
   if (isPublicPet) return null;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-primary-200/60 bg-white/90 backdrop-blur dark:border-primary-800 dark:bg-primary-950/90">
+    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur dark:border-slate-700/80 dark:bg-slate-900/95">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link
           href="/"
-          className="flex items-center gap-2 text-xl font-bold text-primary-800 dark:text-primary-100"
+          className="flex items-center gap-2 text-xl font-bold text-slate-800 dark:text-white"
         >
-          <span className="text-2xl" aria-hidden>🐾</span>
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-600 text-base">🐾</span>
           PetID
         </Link>
-        <nav className="flex items-center gap-3">
+        <nav className="flex items-center gap-2">
           {loading ? (
-            <span className="text-sm text-primary-500">Carregando...</span>
+            <span className="text-sm text-slate-400">Carregando...</span>
           ) : user ? (
             <>
               <Link
                 href="/dashboard"
-                className="text-sm font-medium text-primary-700 hover:text-primary-600 dark:text-primary-300 dark:hover:text-primary-200"
+                className="rounded-lg px-3 py-1.5 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
               >
                 Meus Pets
               </Link>

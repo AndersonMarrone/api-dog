@@ -10,19 +10,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="w-full">
         {label && (
-          <label className="mb-1 block text-sm font-medium text-primary-800 dark:text-primary-200">
+          <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
             {label}
           </label>
         )}
         <input
           ref={ref}
           className={`
-            w-full rounded-xl border bg-white px-4 py-2.5 text-primary-900
-            placeholder:text-primary-400
-            focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20
-            dark:border-primary-700 dark:bg-primary-900/30 dark:text-primary-100
+            w-full rounded-xl border bg-white px-4 py-2.5 text-slate-900
+            placeholder:text-slate-400 transition-colors
+            focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/20
+            dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500
             disabled:opacity-60
-            ${error ? "border-amber-500 focus:ring-amber-500/20" : "border-primary-300"}
+            ${error ? "border-red-400 focus:ring-red-400/20" : "border-slate-300"}
             ${className}
           `}
           {...props}

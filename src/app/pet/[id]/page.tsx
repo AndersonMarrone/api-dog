@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getPetById } from "@/lib/firestore-pets";
+import { getPetById } from "@/lib/pets";
 import { PetPublicView } from "./PetPublicView";
 
 export const dynamic = "force-dynamic";

@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fefcf8;
-  --foreground: #2d2a26;
-  /* Pet Care palette - warm and friendly */
+  --background: #f0f4f8;
+  --foreground: #1e2a35;
+
+  /* Primary — warm amber */
   --primary-50: #fef9f0;
   --primary-100: #fdf0d9;
   --primary-200: #f9e2b9;
@@ -15,6 +16,19 @@
   --primary-800: #78451a;
   --primary-900: #643a19;
   --primary-950: #361c09;
+
+  /* Accent — teal */
+  --accent-50: #f0fdfa;
+  --accent-100: #ccfbf1;
+  --accent-200: #99f6e4;
+  --accent-300: #5eead4;
+  --accent-400: #2dd4bf;
+  --accent-500: #14b8a6;
+  --accent-600: #0d9488;
+  --accent-700: #0f766e;
+  --accent-800: #115e59;
+  --accent-900: #134e4a;
+  --accent-950: #042f2e;
 }
 
 @theme inline {
@@ -22,6 +36,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
   --color-primary-50: var(--primary-50);
   --color-primary-100: var(--primary-100);
   --color-primary-200: var(--primary-200);
@@ -33,12 +48,24 @@
   --color-primary-800: var(--primary-800);
   --color-primary-900: var(--primary-900);
   --color-primary-950: var(--primary-950);
+
+  --color-accent-50: var(--accent-50);
+  --color-accent-100: var(--accent-100);
+  --color-accent-200: var(--accent-200);
+  --color-accent-300: var(--accent-300);
+  --color-accent-400: var(--accent-400);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+  --color-accent-700: var(--accent-700);
+  --color-accent-800: var(--accent-800);
+  --color-accent-900: var(--accent-900);
+  --color-accent-950: var(--accent-950);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #1a1714;
-    --foreground: #f5f0e8;
+    --background: #111827;
+    --foreground: #f1f5f9;
   }
 }
 

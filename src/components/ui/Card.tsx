@@ -21,8 +21,9 @@ export function Card({
   return (
     <div
       className={`
-        rounded-2xl border border-primary-200/60 bg-white shadow-lg
-        dark:border-primary-800 dark:bg-primary-950/50
+        rounded-2xl border border-slate-200 bg-white shadow-sm
+        transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5
+        dark:border-slate-700 dark:bg-slate-800/60
         ${paddingMap[padding]}
         ${className}
       `}

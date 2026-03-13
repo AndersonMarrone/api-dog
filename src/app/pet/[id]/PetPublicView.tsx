@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import type { Pet } from "@/types/pet";
-import { saveLocationAlert } from "@/lib/firestore-pets";
+import { saveLocationAlert } from "@/lib/pets";
 
 interface PetPublicViewProps {
   pet: Pet;
@@ -75,6 +75,12 @@ export function PetPublicView({ pet }: PetPublicViewProps) {
   return (
     <div className="min-h-screen bg-primary-50 dark:bg-primary-950">
       <div className="mx-auto max-w-md px-4 py-6 pb-10">
+        {/* Banner de urgência */}
+        <div className="mb-4 rounded-2xl bg-orange-500 px-5 py-4 text-center shadow-lg">
+          <p className="text-lg font-bold text-white">🐾 Encontrei este pet!</p>
+          <p className="mt-0.5 text-sm text-orange-100">Use os botões abaixo para avisar o dono</p>
+        </div>
+
         <div className="rounded-3xl border border-primary-200/60 bg-white shadow-xl dark:border-primary-800 dark:bg-primary-900/50">
           <div className="relative h-56 w-full overflow-hidden rounded-t-3xl bg-primary-100 dark:bg-primary-900">
             {pet.photoUrl ? (

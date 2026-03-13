@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
-import { getPetsByUserId } from "@/lib/firestore-pets";
+import { getPetsByUserId } from "@/lib/pets";
 import type { Pet } from "@/types/pet";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { Button } from "@/components/ui/Button";
@@ -35,7 +35,7 @@ export default function DashboardPage() {
         const timeoutPromise = new Promise<Pet[]>((_, reject) =>
           setTimeout(() => reject(new Error("timeout")), 8000)
         );
-        const data = await Promise.race([getPetsByUserId(user.uid), timeoutPromise]);
+        const data = await Promise.race([getPetsByUserId(user.id), timeoutPromise]);
         if (!cancelled) setPets(data);
       } catch (err: unknown) {
         if (!cancelled) {
@@ -110,15 +110,33 @@ export default function DashboardPage() {
       )}
       {pets.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-primary-300 bg-primary-50/50 p-12 text-center dark:border-primary-700 dark:bg-primary-900/30">
-          <p className="text-primary-600 dark:text-primary-400">
-            Você ainda não cadastrou nenhum pet.
+          <svg viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-auto mb-6 w-36 opacity-80">
+            <ellipse cx="80" cy="95" rx="50" ry="10" fill="#f2c77a" opacity="0.3"/>
+            <ellipse cx="80" cy="72" rx="32" ry="26" fill="#e8a73a"/>
+            <ellipse cx="80" cy="48" rx="22" ry="20" fill="#e8a73a"/>
+            <ellipse cx="70" cy="36" rx="9" ry="13" fill="#d98b1a" transform="rotate(-15 70 36)"/>
+            <ellipse cx="90" cy="36" rx="9" ry="13" fill="#d98b1a" transform="rotate(15 90 36)"/>
+            <circle cx="74" cy="50" r="3.5" fill="#361c09"/>
+            <circle cx="86" cy="50" r="3.5" fill="#361c09"/>
+            <ellipse cx="80" cy="57" rx="5" ry="3" fill="#b86f14"/>
+            <circle cx="74" cy="49" r="1.5" fill="white"/>
+            <circle cx="86" cy="49" r="1.5" fill="white"/>
+            <rect x="55" y="85" width="50" height="18" rx="9" fill="#f2c77a" opacity="0.6"/>
+            <circle cx="112" cy="30" r="12" fill="#fdf0d9" stroke="#f2c77a" strokeWidth="1.5"/>
+            <text x="112" y="35" textAnchor="middle" fontSize="13" fill="#d98b1a">?</text>
+          </svg>
+          <p className="text-lg font-semibold text-primary-800 dark:text-primary-200">
+            Nenhum pet cadastrado ainda
           </p>
-          <Link href="/dashboard/pet/new" className="mt-4 inline-block">
+          <p className="mt-1 text-sm text-primary-500 dark:text-primary-400">
+            Cadastre seu pet e gere o QR Code para a coleira
+          </p>
+          <Link href="/dashboard/pet/new" className="mt-5 inline-block">
             <Button variant="primary">Cadastrar primeiro pet</Button>
           </Link>
         </div>
       ) : (
-        <ul className="flex flex-col gap-4">
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {pets.map((pet) => (
             <li key={pet.id}>
               <PetCard pet={pet} onGenerateQR={openQR} />
