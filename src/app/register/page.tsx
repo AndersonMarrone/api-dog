@@ -49,19 +49,21 @@ export default function RegisterPage() {
       router.push("/dashboard");
       router.refresh();
     } catch (err: unknown) {
-      const fb = err as { code?: string; message?: string };
-      const code = typeof fb?.code === "string" ? fb.code : "";
-      const messages: Record<string, string> = {
-        "auth/email-already-in-use": "Este e-mail já está em uso. Tente entrar ou use outro e-mail.",
-        "auth/invalid-email": "E-mail inválido. Verifique o formato.",
-        "auth/weak-password": "A senha é fraca. Use pelo menos 6 caracteres.",
-        "auth/operation-not-allowed": "Cadastro por e-mail está desativado. Ative em Firebase Console → Authentication → Sign-in method → E-mail/Senha.",
-        "auth/network-request-failed": "Erro de conexão. Verifique sua internet.",
-        "auth/too-many-requests": "Muitas tentativas. Aguarde alguns minutos.",
-        "auth/configuration-not-found": "Projeto Firebase não encontrado. Confira o .env.local.",
-      };
-      const fallback = code ? `Erro: ${code}` : (fb?.message || "Não foi possível criar a conta. Tente novamente.");
-      setError(messages[code] ?? fallback);
+      const e = err as { message?: string };
+      const msg = e?.message ?? "";
+      if (msg.includes("already registered") || msg.includes("already been registered")) {
+        setError("Este e-mail já está em uso. Tente entrar ou use outro e-mail.");
+      } else if (msg.includes("invalid") && msg.includes("email")) {
+        setError("E-mail inválido. Verifique o formato.");
+      } else if (msg.includes("Password") || msg.includes("password")) {
+        setError("A senha é fraca. Use pelo menos 6 caracteres.");
+      } else if (msg.includes("network") || msg.includes("fetch")) {
+        setError("Erro de conexão. Verifique sua internet.");
+      } else if (msg.includes("rate") || msg.includes("too many")) {
+        setError("Muitas tentativas. Aguarde alguns minutos.");
+      } else {
+        setError(msg || "Não foi possível criar a conta. Tente novamente.");
+      }
     } finally {
       setLoading(false);
     }
